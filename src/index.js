@@ -96,7 +96,7 @@ module.exports = function (config) {
       get: wrap(function *(id) {
         const result = yield dbexec(q => q(`SELECT json from ${tableName} where id = $1`, [id]));
         if(result.rowCount === 0) {
-          throw {displayName: 'NotFound'};
+          return null;
         }
         return JSON.parse(result.rows[0].json);
       }),
